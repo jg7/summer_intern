@@ -1,0 +1,38 @@
+IndexError                                Traceback (most recent call last)
+<ipython-input-3-152a31b86971> in <module>()
+     39         pad_out = torch.log(pad_out)
+     40         loss = criterion(pad_out,target)+cov_loss
+---> 41         loss.backward()
+     42         opt.step()
+     43         print("got thru batch!")
+
+~/.local/lib/python3.5/site-packages/torch/tensor.py in backward(self, gradient, retain_graph, create_graph)
+     91                 products. Defaults to ``False``.
+     92         """
+---> 93         torch.autograd.backward(self, gradient, retain_graph, create_graph)
+     94 
+     95     def register_hook(self, hook):
+
+~/.local/lib/python3.5/site-packages/torch/autograd/__init__.py in backward(tensors, grad_tensors, retain_graph, create_graph, grad_variables)
+     87     Variable._execution_engine.run_backward(
+     88         tensors, grad_tensors, retain_graph, create_graph,
+---> 89         allow_unreachable=True)  # allow_unreachable flag
+     90 
+     91 
+
+~/.local/lib/python3.5/site-packages/torch/autograd/function.py in apply(self, *args)
+     74 
+     75     def apply(self, *args):
+---> 76         return self._forward_cls.backward(self, *args)
+     77 
+     78 
+
+~/.local/lib/python3.5/site-packages/torch/nn/_functions/packing.py in backward(ctx, grad_steps, grad_batch_sizes)
+     48         offset = 0
+     49         for i, bs in enumerate(ctx.batch_sizes):
+---> 50             grad_input[i, :bs] = grad_steps[offset:offset + bs]
+     51             offset += bs
+     52 
+
+IndexError: index 67 is out of bounds for dimension 0 with size 67
+
